@@ -14,8 +14,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={sora.variable}>{children}</body>
+    <html lang="en" className={sora.variable}>
+      <body>{children}</body>
     </html>
   );
 }
