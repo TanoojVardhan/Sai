@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { db } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import styles from "./admin.module.css";
@@ -10,25 +10,30 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    async function fetchVotes() {
-      try {
-        const snap = await getDoc(doc(db, "votes", "summary"));
-        if (snap.exists()) {
-          setVotes(snap.data());
-        } else {
-          setVotes({ interested: 0, notInterested: 0 });
-        }
-      } catch (e) {
-        setError("Failed to load votes.");
-      } finally {
-        setLoading(false);
+  const fetchVotes = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const snap = await getDoc(doc(db, "votes", "summary"));
+      if (snap.exists()) {
+        setVotes(snap.data());
+      } else {
+        setVotes({ interested: 0, notInterested: 0 });
       }
+    } catch (e) {
+      setError("Failed to load votes. Check your Firebase connection.");
+    } finally {
+      setLoading(false);
     }
-    fetchVotes();
   }, []);
 
-  const total = votes ? (votes.interested ?? 0) + (votes.notInterested ?? 0) : 0;
+  useEffect(() => { fetchVotes(); }, [fetchVotes]);
+
+  const interested    = votes?.interested    ?? 0;
+  const notInterested = votes?.notInterested ?? 0;
+  const total         = interested + notInterested;
+  const intPct        = total > 0 ? Math.round((interested    / total) * 100) : 0;
+  const notPct        = total > 0 ? Math.round((notInterested / total) * 100) : 0;
 
   return (
     <div className={styles.page}>
@@ -40,24 +45,54 @@ export default function AdminPage() {
 
       <main className={styles.main}>
         {loading && <p className={styles.loading}>Loading votes…</p>}
-        {error && <p className={styles.err}>{error}</p>}
+        {error   && <p className={styles.err}>{error}</p>}
+
         {votes && (
-          <div className={styles.cards}>
-            <div className={`${styles.card} ${styles.cardGreen}`}>
-              <span className={styles.cardLabel}>Interested</span>
-              <span className={styles.cardCount}>{votes.interested ?? 0}</span>
+          <>
+            <div className={styles.cards}>
+              {/* Interested */}
+              <div className={`${styles.card} ${styles.cardGreen}`}>
+                <span className={styles.cardLabel}>Interested</span>
+                <span className={styles.cardCount}>{interested}</span>
+                <span className={styles.cardPct}>{intPct}%</span>
+                <div className={styles.bar}>
+                  <div
+                    className={`${styles.barFill} ${styles.barGreen}`}
+                    style={{ width: `${intPct}%` }}
+                  />
+                </div>
+              </div>
+
+              {/* Not Interested */}
+              <div className={`${styles.card} ${styles.cardGray}`}>
+                <span className={styles.cardLabel}>Not Interested</span>
+                <span className={styles.cardCount}>{notInterested}</span>
+                <span className={styles.cardPct}>{notPct}%</span>
+                <div className={styles.bar}>
+                  <div
+                    className={`${styles.barFill} ${styles.barGray}`}
+                    style={{ width: `${notPct}%` }}
+                  />
+                </div>
+              </div>
+
+              {/* Total */}
+              <div className={`${styles.card} ${styles.cardTotal}`}>
+                <span className={styles.cardLabel}>Total Votes</span>
+                <span className={styles.cardCount}>{total}</span>
+              </div>
             </div>
-            <div className={`${styles.card} ${styles.cardGray}`}>
-              <span className={styles.cardLabel}>Not Interested</span>
-              <span className={styles.cardCount}>{votes.notInterested ?? 0}</span>
-            </div>
-            <div className={styles.card}>
-              <span className={styles.cardLabel}>Total Votes</span>
-              <span className={styles.cardCount}>{total}</span>
-            </div>
-          </div>
+
+            <button className={styles.refresh} onClick={fetchVotes}>
+              Refresh
+            </button>
+          </>
         )}
       </main>
+
+      <footer className={styles.footer}>
+        © 2026 OnGo Instant Bath Wipes — Admin
+      </footer>
     </div>
   );
 }
