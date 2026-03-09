@@ -18,9 +18,6 @@ const pages = [
   },
 ];
 
-export const metadata = {
-  title: "Site Index · OnGo",
-};
 
 export default function IndexPage() {
   return (

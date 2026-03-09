@@ -11,32 +11,43 @@ const fragranceOptions = [
 ];
 
 const whyChoose = [
-  {
-    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6L12 2z" fill="currentColor"/></svg>,
-    title: "Instant Freshness",
-    desc: "Stay clean and refreshed without taking a bath.",
-  },
-  {
-    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C12 2 4 10 4 15a8 8 0 0016 0C20 10 12 2 12 2z" stroke="currentColor" strokeWidth="2"/></svg>,
-    title: "No Water Needed",
-    desc: "Designed for situations where bathing facilities are unavailable.",
-  },
-  {
-    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="currentColor" strokeWidth="2"/></svg>,
-    title: "Travel Friendly",
-    desc: "Easy to carry in bags, backpacks, or luggage.",
-  },
-  {
-    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/><path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>,
-    title: "Time Saving",
-    desc: "Feel refreshed in just a few minutes.",
-  },
-  {
-    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2L3 7v5c0 5.25 3.75 10.14 9 11.35C17.25 22.14 21 17.25 21 12V7L12 2z" stroke="currentColor" strokeWidth="2"/><path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-    title: "Hygienic & Convenient",
-    desc: "Individually packed wipes ensure cleanliness and easy use anywhere.",
-  },
+  { icon: "star",    title: "Instant Freshness",     desc: "Stay clean and refreshed without taking a bath." },
+  { icon: "drop",    title: "No Water Needed",        desc: "Designed for situations where bathing facilities are unavailable." },
+  { icon: "bag",     title: "Travel Friendly",        desc: "Easy to carry in bags, backpacks, or luggage." },
+  { icon: "clock",   title: "Time Saving",            desc: "Feel refreshed in just a few minutes." },
+  { icon: "shield",  title: "Hygienic & Convenient",  desc: "Individually packed wipes ensure cleanliness and easy use anywhere." },
 ];
+
+function WhyIcon({ name }) {
+  if (name === "star") return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6L12 2z" fill="currentColor"/>
+    </svg>
+  );
+  if (name === "drop") return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 2C12 2 4 10 4 15a8 8 0 0016 0C20 10 12 2 12 2z" stroke="currentColor" strokeWidth="2"/>
+    </svg>
+  );
+  if (name === "bag") return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="2" y="7" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="2"/>
+      <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="currentColor" strokeWidth="2"/>
+    </svg>
+  );
+  if (name === "clock") return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
+      <path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    </svg>
+  );
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 2L3 7v5c0 5.25 3.75 10.14 9 11.35C17.25 22.14 21 17.25 21 12V7L12 2z" stroke="currentColor" strokeWidth="2"/>
+      <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
 
 const specs = [
   { label: "Size", value: "30 cm × 40 cm — Full body use" },
@@ -174,7 +185,7 @@ export default function Home() {
           <div className="why-grid">
             {whyChoose.map((w) => (
               <article className="why-card" key={w.title}>
-                <div className="why-icon">{w.icon}</div>
+                <div className="why-icon"><WhyIcon name={w.icon} /></div>
                 <h3>{w.title}</h3>
                 <p>{w.desc}</p>
               </article>
