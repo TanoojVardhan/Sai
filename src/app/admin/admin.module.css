@@ -1,0 +1,151 @@
+.page {
+  min-height: 100vh;
+  background: #f7f5f2;
+  font-family: var(--font-sora), sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: #ffffff;
+  border-bottom: 1px solid #e8e3dd;
+  padding: 32px 24px 24px;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #4aab8e;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+
+.title {
+  margin: 0 0 6px;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  color: #2c2825;
+}
+
+.subtitle {
+  margin: 0;
+  color: #7a736b;
+  font-size: 0.95rem;
+}
+
+.main {
+  flex: 1;
+  width: min(800px, 92vw);
+  margin: 40px auto;
+}
+
+.loading,
+.err {
+  text-align: center;
+  color: #7a736b;
+  font-size: 1rem;
+  padding: 40px 0;
+}
+
+.err {
+  color: #c0392b;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 24px 20px;
+  border: 1px solid #e8e3dd;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cardGreen {
+  border-left: 4px solid #4aab8e;
+}
+
+.cardGray {
+  border-left: 4px solid #b0a89e;
+}
+
+.cardTotal {
+  border-left: 4px solid #9b8fcf;
+}
+
+.cardLabel {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #7a736b;
+  font-weight: 600;
+}
+
+.cardCount {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #2c2825;
+  line-height: 1.1;
+}
+
+.cardPct {
+  font-size: 1rem;
+  color: #7a736b;
+}
+
+.bar {
+  margin-top: 10px;
+  height: 6px;
+  background: #f0ede8;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.5s ease;
+}
+
+.barGreen {
+  background: #4aab8e;
+}
+
+.barGray {
+  background: #b0a89e;
+}
+
+.refresh {
+  display: block;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid #e8e3dd;
+  border-radius: 999px;
+  padding: 10px 24px;
+  font-size: 0.9rem;
+  color: #2c2825;
+  cursor: pointer;
+  font-family: var(--font-sora), sans-serif;
+  transition: box-shadow 0.18s ease;
+}
+
+.refresh:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.footer {
+  text-align: center;
+  color: #7a736b;
+  font-size: 0.82rem;
+  padding: 20px;
+  border-top: 1px solid #e8e3dd;
+}
