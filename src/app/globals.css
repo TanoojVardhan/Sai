@@ -119,6 +119,7 @@ h1 {
   justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
+  margin-top: 300px;
 }
 
 .btn {

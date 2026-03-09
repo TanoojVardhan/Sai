@@ -118,10 +118,7 @@ export default function Home() {
         <section className="hero">
           <div className="hero-card">
             <h1>Stay Fresh<br />Anytime, Anywhere.</h1>
-            <p className="tagline">
-              Instant bath wipes for travelers, trekkers, and anyone on the move
-              who needs quick hygiene without access to a shower.
-            </p>
+
             <div className="vote-buttons">
               <button
                 className="btn btn-primary"
